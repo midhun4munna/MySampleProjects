@@ -1,10 +1,10 @@
-package com.cts.tx.dao;
+package com.samples.tx.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
-import com.cts.tx.entity.Address;
-import com.cts.tx.entity.Users;
+import com.samples.tx.entity.Address;
+import com.samples.tx.entity.Users;
 
 public class UserDAO extends HibernateDaoSupport{
 	

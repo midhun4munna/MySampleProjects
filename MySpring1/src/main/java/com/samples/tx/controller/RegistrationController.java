@@ -1,4 +1,4 @@
-package com.cts.tx.controller;
+package com.samples.tx.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cts.tx.entity.Address;
-import com.cts.tx.entity.Users;
-import com.cts.tx.service.HotelService;
+import com.samples.tx.entity.Address;
+import com.samples.tx.entity.Users;
+import com.samples.tx.service.HotelService;
 
 @Controller
 public class RegistrationController {

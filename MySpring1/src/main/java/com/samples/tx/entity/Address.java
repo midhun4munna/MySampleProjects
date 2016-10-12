@@ -1,4 +1,5 @@
-package com.cts.tx.entity;
+package com.samples.tx.entity;
+
 
 import java.io.Serializable;
 import java.util.Set;
@@ -13,16 +14,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Users")
-public class Users implements Serializable {
+@Table(name = "Address")
+public class Address implements Serializable {
 
 	@Id
 	@Column(name = "firstname")
 	private String firstName;
-	@Column(name = "lastname")
-	private String lastName;
-	@Column(name = "gender")
-	private String gender;
+	@Column(name = "state")
+	private String state;
+	@Column(name = "country")
+	private String country;
 
 	public String getFirstName() {
 		return firstName;
@@ -32,19 +33,20 @@ public class Users implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getState() {
+		return state;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setState(String state) {
+		this.state = state;
 	}
 
-	public String getGender() {
-		return gender;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setCountry(String country) {
+		this.country = country;
 	}
+
 }

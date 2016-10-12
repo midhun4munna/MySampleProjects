@@ -1,15 +1,13 @@
-package com.cts.tx.service;
+package com.samples.tx.service;
 
-import com.cts.tx.dao.UserDAO;
-import com.cts.tx.entity.Address;
-import com.cts.tx.entity.Users;
+import com.samples.tx.dao.UserDAO;
+import com.samples.tx.entity.Address;
+import com.samples.tx.entity.Users;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cts.tx.entity.Users;
 
 public class HotelServiceImpl implements HotelService {
 

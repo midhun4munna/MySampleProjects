@@ -1,6 +1,6 @@
-package com.cts.tx.service;
+package com.samples.tx.service;
 
-import com.cts.tx.entity.Users;
+import com.samples.tx.entity.Users;
 
 public interface HotelService {
 	
