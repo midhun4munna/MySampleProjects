@@ -1,0 +1,6 @@
+com\samples\tx\controller\RegistrationController.class
+com\samples\tx\dao\UserDAO.class
+com\samples\tx\service\HotelService.class
+com\samples\tx\service\HotelServiceImpl.class
+com\samples\tx\entity\Address.class
+com\samples\tx\entity\Users.class
