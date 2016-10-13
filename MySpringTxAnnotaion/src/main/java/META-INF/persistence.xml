@@ -6,8 +6,8 @@
 	version="2.0">
 	<persistence-unit name="UserPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.cts.tx.entity.Users</class>
-		<class>com.cts.tx.entity.Address</class>
+		<class>com.samples.tx.entity.Users</class>
+		<class>com.samples.tx.entity.Address</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost/mytest" />
