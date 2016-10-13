@@ -8,7 +8,7 @@
 	<persistence-unit name="UserPU" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/mysql</jta-data-source>
-		<class>com.cts.entity.Users</class>
+		<class>com.samples.entity.Users</class>
 	</persistence-unit>
 
 </persistence>
