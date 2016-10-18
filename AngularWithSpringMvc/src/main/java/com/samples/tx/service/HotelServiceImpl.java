@@ -4,6 +4,8 @@ import com.samples.tx.dao.UserDAO;
 import com.samples.tx.entity.Address;
 import com.samples.tx.entity.Users;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -46,9 +48,9 @@ public class HotelServiceImpl implements HotelService {
 		System.out.println("Add User3 Completed");
 	}
 	
-	public void getAllUsers(){
+	public List<Users> getAllUsers(){
 		System.out.println("Inside getAllUsers method of HotelService11111111");
-		
+		return userDAO.getAllUsers();
 	}
 
 	public UserDAO getUserDAO() {

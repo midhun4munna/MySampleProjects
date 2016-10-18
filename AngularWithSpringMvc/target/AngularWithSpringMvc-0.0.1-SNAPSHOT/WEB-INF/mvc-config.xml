@@ -14,7 +14,6 @@
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- Example: a logical view name of 'showMessage' is mapped to '/WEB-INF/jsp/showMessage.jsp' -->
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
@@ -27,38 +26,16 @@
 		<property name="password" value="admin" />
 	</bean>
 
-	<bean id="mySessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="myDataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>com.samples.tx.entity.Users</value>
-				<value>com.samples.tx.entity.Address</value>
-			</list>
-		</property>
-
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">true</prop>
-			</props>
-		</property>
+	<bean id="registrationController" class="com.samples.tx.controller.RegistrationController">
+		<property name="hotelservice" ref="hotelserviceProxyBean" />
+		<property name="test" value="testing....." />
 	</bean>
 
-	<bean id="txManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="mySessionFactory" />
-		<property name="dataSource" ref="myDataSource" />
-	</bean>
-
-
-	<bean class="com.samples.tx.service.HotelServiceImpl" id="hotelservice">
+	<bean id="hotelservice" class="com.samples.tx.service.HotelServiceImpl">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 
-	<bean class="org.springframework.aop.framework.ProxyFactoryBean"
-		id="hotelserviceProxyBean">
+	<bean id="hotelserviceProxyBean" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="target" ref="hotelservice" />
 		<property name="interceptorNames">
 			<list>
@@ -67,26 +44,38 @@
 		</property>
 	</bean>
 
-	<bean class="com.samples.tx.controller.RegistrationController" id="registrationController">
-		<property name="hotelservice" ref="hotelserviceProxyBean" />
-		<property name="test" value="testing....." />
-	</bean>
-
-	<bean
-		class="org.springframework.transaction.interceptor.TransactionInterceptor"
-		id="txInterceptor">
+	<bean id="txInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
 		<property name="transactionManager" ref="txManager" />
 		<property name="transactionAttributes">
 			<props>
-				<prop key="addUser">PROPAGATION_MANDATORY</prop>
+				<prop key="addUser">PROPAGATION_REQUIRED</prop>
 				<prop key="addUser2">PROPAGATION_REQUIRED</prop>
+				<prop key="getAllUsers">PROPAGATION_REQUIRES_NEW</prop>
 			</props>
 		</property>
 	</bean>
 
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryBean" />
+	</bean>
 
-	<bean class="com.samples.tx.dao.UserDAO" id="userDAO">
-		<property name="sessionFactory" ref="mySessionFactory" />
+	<bean id="entityManagerFactoryBean"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="packagesToScan" value="com.samples.tx.entity" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="userDAO" class="com.samples.tx.dao.UserDAO">
 	</bean>
 
 </beans>

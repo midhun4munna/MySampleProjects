@@ -1,5 +1,7 @@
 package com.samples.tx.service;
 
+import java.util.List;
+
 import com.samples.tx.entity.Users;
 
 public interface HotelService {
@@ -8,6 +10,6 @@ public interface HotelService {
 	
 	public void addUser2(Users u);
 	
-	public void getAllUsers();
+	public List<Users> getAllUsers();
 	
 }
