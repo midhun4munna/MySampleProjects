@@ -1,0 +1,21 @@
+<div id="formInput" ng-controller="addController as addCtrl">
+	<p>
+		<font size="8" color="green">ADD NEW USER </font>
+	</p>
+	<form id="register" name="form" method="POST" class="form-horizontal">
+		<font size="5" color="green">First name:</font><br> <input
+			type="text" class="form-control txtbox" name="firstname" id="fname1"
+			ng-model="fnametxt"> <br> <font size="5" color="green">Last
+			name:</font><br> <input type="text" class="form-control txtbox"
+			name="lastname" ng-model="lnametxt"> <br> <font size="5"
+			color="green">Gender:</font><br> <input type="radio"
+			name="gender" value="male" ng-checked="{{malechked}}"
+			ng-model="gendertxt"> <font size="4" color="#000000">Male</font>
+		<input type="radio" name="gender" value="female"
+			ng-checked="{{femalechked}}" ng-model="gendertxt"> <font
+			size="4" color="#000000">Female</font> <br>
+		<button name="Submit" id="addUser" class="btn btn-primary submitform"
+			ng-click="addCtrl.addUser(fnametxt,lnametxt,gendertxt)">Add
+			User</button>
+	</form>
+</div>
