@@ -41,7 +41,7 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<Users>> registerUserGet(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<List<Users>> registerUserGet() {
 		System.out.println("Starting registerUserGet" );
 		List<Users> allUser = new ArrayList<Users>();
 		try {
