@@ -12,4 +12,8 @@ public interface HotelService {
 	
 	public List<Users> getAllUsers();
 	
+	public void updateUser(Users u);
+	
+	public void removeUser(Users u);
+	
 }
