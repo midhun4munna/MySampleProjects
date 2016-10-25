@@ -9,8 +9,10 @@
 
 	<context:component-scan base-package="com.cts.tx.controller" />
 
-
+	<context:annotation-config />
 	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/theme1/"
+	cache-period="31556926"/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -49,9 +51,11 @@
 		<property name="transactionManager" ref="txManager" />
 		<property name="transactionAttributes">
 			<props>
-				<prop key="addUser">PROPAGATION_REQUIRED</prop>
+				<prop key="addUser">PROPAGATION_REQUIRES_NEW</prop>
 				<prop key="addUser2">PROPAGATION_REQUIRED</prop>
 				<prop key="getAllUsers">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="updateUser">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="removeUser">PROPAGATION_REQUIRES_NEW</prop>
 			</props>
 		</property>
 	</bean>
@@ -76,6 +80,9 @@
 	</bean>
 
 	<bean id="userDAO" class="com.samples.tx.dao.UserDAO">
+	</bean>
+	
+	<bean id="user" class="com.samples.tx.model.User">
 	</bean>
 
 </beans>
