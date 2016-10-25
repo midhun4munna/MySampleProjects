@@ -17,20 +17,30 @@ public class UserDAO {
 	private EntityManager manager;
 
 	public void addUser(Users usr) {
-		System.out.println("User 555555");
 		manager.persist(usr);
 		System.out.println("User Saved to database from UserDAO");
-	}
-
-	public void addAddress(Address add) {
-		System.out.println("Inside addAddress of UserDAO");
-		System.out.println("Address Saved to database from UserDAO");
 	}
 
 	public List<Users> getAllUsers() {
 		System.out.println("Getting All Users");
 		List<Users> users = manager.createQuery("SELECT e FROM Users e").getResultList();
 		return users;
+	}
+	
+	public void updateUser(Users user) {
+		System.out.println("Updating User started");
+		Users user1 = (Users)manager.find(Users.class, user.getFirstName());
+		user1.setLastName(user.getLastName());
+		user1.setGender(user.getGender());
+		manager.merge(user);
+		System.out.println("User Updated Successfully");
+	}
+	
+	public void removeUser(Users user) {
+		System.out.println("Removing User started");
+		Users user1 = (Users)manager.find(Users.class, user.getFirstName());
+		manager.remove(user1);
+		System.out.println("User Removed Successfully");
 	}
 
 }
