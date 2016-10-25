@@ -17,13 +17,8 @@ public class HotelServiceImpl implements HotelService {
 	private UserDAO userDAO;
 
 	public void addUser(Users u) {
-		System.out.println("Inside addUser1 method of HotelService11111111");
+		System.out.println("Inside addUser1 method of HotelService");
 		userDAO.addUser(u);
-		Address address1 = new Address();
-		address1.setFirstName(u.getFirstName());
-		address1.setState("TamilNadu");
-		address1.setCountry("Iran");
-		userDAO.addAddress(address1);
 		System.out.println("Add User1 Completed");
 	}
 
@@ -38,7 +33,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	public void addUser3(Users u) {
-		System.out.println("Inside addUser3 method of HotelService11111111");
+		System.out.println("Inside addUser3 method of HotelService");
 		//userDAO.addUser(u);
 		Address address1 = new Address();
 		address1.setFirstName(u.getFirstName() + "hhh");
@@ -49,7 +44,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	public List<Users> getAllUsers(){
-		System.out.println("Inside getAllUsers method of HotelService11111111");
+		System.out.println("Inside getAllUsers method of HotelService");
 		return userDAO.getAllUsers();
 	}
 
@@ -59,6 +54,18 @@ public class HotelServiceImpl implements HotelService {
 
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+	
+	public void updateUser(Users u) {
+		System.out.println("Inside updateUser method of HotelService");
+		userDAO.updateUser(u);
+		System.out.println("Update user completed");
+	}
+	
+	public void removeUser(Users u) {
+		System.out.println("Inside removeUser method of HotelService");
+		userDAO.removeUser(u);
+		System.out.println("RemoveUser completed");
 	}
 
 }
