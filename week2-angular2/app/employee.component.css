@@ -1,0 +1,58 @@
+table {
+	font-family: arial, sans-serif;
+	border-collapse: separate;
+	width: 70%;
+}
+
+td, th {
+	border: 2px solid black;
+	text-align: left;
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+tr:nth-child(odd) {
+	background-color: white;
+}
+
+body {
+	background-color: #e6e6ff;
+}
+
+h1 {
+	color: white;
+	text-align: center;
+}
+
+p {
+	font-family: verdana;
+	font-size: 20px;
+}
+
+.txtbox {
+	background-color: #ffe6ff;
+	width: 40%;
+	height: 30px;
+	border: 1px solid black;
+}
+
+form {
+	background-color: #e6fffa;
+	width: 60%;
+	height: 280px;
+	border: 1px solid black;
+}
+
+button {
+	background-color: #00cccc;
+}
+
+.hdiv {
+	background-color: #1ac6ff;
+	width: 100%;
+	height: 85px;
+	border: 1px solid black;
+}
