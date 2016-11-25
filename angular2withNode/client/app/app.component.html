@@ -1,0 +1,31 @@
+<h1 style="font-family: Times New Roman; font-style: italic; color : blue">Employee Registration!</h1>
+			<div>
+			<ul>
+				<li><a routerLink="/add">Add New Employee</a></li>
+			</ul>
+			</div>
+				<div>
+			<router-outlet></router-outlet>
+			</div>
+			<div>
+			<table class="table" id="myTable" style="background-color:#e6ffff">
+						<thead>
+							<tr>
+								<th>FirstName</th>
+								<th>LastName</th>
+								<th>GenderName</th>
+								<th>ChangeMe</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr *ngFor="let emp of employees" #trInput>
+								<td #fnameInput>{{emp.firstName}}</td>
+								<td #lnameInput>{{emp.lastName}}</td>
+								<td #gender>{{emp.gender}}</td>
+								<td><a routerLink="/modify" (click)=onModify(fnameInput,lnameInput,gender)><font color="green">MODIFY </font></a>
+								<a (click)=onRemove(fnameInput,lnameInput,gender)><font color="red">REMOVE </font></a></td>
+							</tr>
+						</tbody>
+				</table>
+	</div>
