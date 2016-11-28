@@ -53,7 +53,7 @@ s<?xml version="1.0" encoding="UTF-8"?>
 	</bean>
 
 
-	<bean class="com.cts.tx.service.HotelServiceImpl" id="hotelservice">
+	<bean class="com.samples.tx.service.HotelServiceImpl" id="hotelservice">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 
