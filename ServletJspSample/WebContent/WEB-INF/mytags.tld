@@ -12,6 +12,6 @@
   
 <tag>  
 <name>hitag</name>  
-<tag-class>com.cts.servlets.taglib.MyTagHandler</tag-class>  
+<tag-class>com.sample.servlets.taglib.MyTagHandler</tag-class>  
 </tag>  
 </taglib>  
