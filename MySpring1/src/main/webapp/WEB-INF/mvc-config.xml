@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+s<?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="com.cts.tx.controller" />
+	<context:component-scan base-package="com.sample.tx.controller" />
 
 
 	<mvc:annotation-driven />
@@ -32,8 +32,8 @@
 		<property name="dataSource" ref="myDataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.cts.tx.entity.Users</value>
-				<value>com.cts.tx.entity.Address</value>
+				<value>com.sample.tx.entity.Users</value>
+				<value>com.sample.tx.entity.Address</value>
 			</list>
 		</property>
 
@@ -67,7 +67,7 @@
 		</property>
 	</bean>
 
-	<bean class="com.cts.tx.controller.RegistrationController" id="registrationController">
+	<bean class="com.sample.tx.controller.RegistrationController" id="registrationController">
 		<property name="hotelservice" ref="hotelserviceProxyBean" />
 		<property name="test" value="testing....." />
 	</bean>
