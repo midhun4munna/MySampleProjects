@@ -85,7 +85,7 @@ s<?xml version="1.0" encoding="UTF-8"?>
 	</bean>
 
 
-	<bean class="com.cts.tx.dao.UserDAO" id="userDAO">
+	<bean class="com.sample.tx.dao.UserDAO" id="userDAO">
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 
