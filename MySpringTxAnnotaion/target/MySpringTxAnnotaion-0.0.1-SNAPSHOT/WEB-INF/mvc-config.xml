@@ -37,18 +37,18 @@
 	</bean>
 
 
-	<bean class="com.cts.tx.service.HotelServiceImpl" id="hotelservice">
+	<bean class="com.sample.tx.service.HotelServiceImpl" id="hotelservice">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 
 
-	<bean class="com.cts.tx.controller.RegistrationController" id="registrationController">
+	<bean class="com.sample.tx.controller.RegistrationController" id="registrationController">
 		<property name="hotelservice" ref="hotelservice" />
 		<property name="test" value="testing....." />
 	</bean>
 
 
-	<bean class="com.cts.tx.dao.UserDAO" id="userDAO">
+	<bean class="com.sample.tx.dao.UserDAO" id="userDAO">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
 	</bean>
 
