@@ -1,11 +1,10 @@
 var http = require("http");
 var express = require("express");
-var mongojs = require("mongojs");
 var path = require('path');
 
-var db = mongojs('mytest',['User']);
-
 var app = express();
+
+var employees = [{"firstName":"Ramu","lastName":"R","gender":"male"},{"firstName":"Midhun","lastName":"M","gender":"male"}];
 
 app.set('views',path.join(__dirname + "/views"));
 app.set('view engine','ejs');
@@ -14,47 +13,51 @@ app.engine('html',require('ejs').renderFile);
 app.use(express.static(path.join(__dirname + "/client")));
 
 app.get('/',function(req,res,next){
-	console.log("Got get Request111");
+	console.log("Request");
 	res.render("index.html");
 	});
 
-app.get('/getUser',function(req,res){
-	console.log("Got get User Request111 ");
-		db.User.find(function(err,docs){
-		res.json(docs);
-	});
+app.get('/getEmployee',function(req,res){
+	console.log("Received getEmployee"+employees);
+	res.json(employees);
 });
 
-app.get('/addNewUser',function(req,res){
-		console.log("Got get Request 222"+req.query.gender);
-		db.User.insert({firstName:req.query.firstname,lastName:req.query.lastname,gender:req.query.gender},function(err,docs){
-		db.User.find(function(err,docs){
-		res.json(docs);
-	});
-	});
+app.get('/addNewEmployee',function(req,res){
+		console.log("Received addNewEmployee"+req.query.gender);
+		var fName = req.query.firstname;
+		var lName = req.query.lastname;
+		var gender = req.query.gender;
+		var newEmployee = {"firstName":fName,"lastName":lName,"gender":gender};
+		console.log("newEmployee "+newEmployee);
+		employees.push(newEmployee);
+		res.json(employees);
 });
 
-app.delete('/removeUser/:firstName',function(req,res){
-	console.log("Got get removeUser "+req.params.firstName);
-		db.User.remove({firstName :req.params.firstName},function(err,docs){
-		db.User.find(function(err,docs){
-		res.json(docs);
-	});
-	});
+app.delete('/removeEmployee/:firstName',function(req,res){
+	console.log("Received removeEmployee "+req.params.firstName);
+	var fName = req.params.firstName;
+	for (var i = 0; i < employees.length; i++){
+		if (employees[i].firstName == fName){
+			console.log("Found Employee "+employees[i].firstName);
+			employees.splice(i, 1); 
+		}
+	}
+	res.json(employees);
 });
 
-app.get('/updateUser',function(req,res){
-	console.log("Got get updateUser "+req.query.firstname);
-		db.User.update({firstName: req.query.firstname},{$set: {firstName:req.query.firstname,lastName:req.query.lastname,gender:req.query.gender}},
-		function(err, object) {
-      if (err){
-          console.log(err.message);  
-      }else{
-			db.User.find(function(err,docs){
-			res.json(docs);
-	});
-      }
-  });
+app.get('/updateEmployee',function(req,res){
+	console.log("Received updateEmployee "+req.query.firstname);
+	var fName = req.query.firstname;
+	var lName = req.query.lastname;
+	var gender = req.query.gender;
+	for (var i = 0; i < employees.length; i++){
+		if (employees[i].firstName == fName){
+			console.log("Found Employee "+employees[i].firstName);
+			employees[i].lastName = lName;
+			employees[i].gender = gender;
+		}
+	}
+	res.json(employees);
 });
 
 app.listen(8888);
