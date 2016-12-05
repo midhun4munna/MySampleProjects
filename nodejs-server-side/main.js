@@ -3,12 +3,16 @@ var express = require("express");
 var path = require('path');
 
 var app = express();
-
+var bodyParser = require('body-parser');
 var employees = [{"firstName":"Ramu","lastName":"R","gender":"male"},{"firstName":"Midhun","lastName":"M","gender":"male"}];
 
 app.set('views',path.join(__dirname + "/views"));
 app.set('view engine','ejs');
 app.engine('html',require('ejs').renderFile);
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname + "/client")));
 
@@ -22,11 +26,11 @@ app.get('/getEmployee',function(req,res){
 	res.json(employees);
 });
 
-app.get('/addNewEmployee',function(req,res){
-		console.log("Received addNewEmployee"+req.query.gender);
-		var fName = req.query.firstname;
-		var lName = req.query.lastname;
-		var gender = req.query.gender;
+app.post('/addNewEmployee',function(req,res){
+		console.log("Received addNewEmployee"+req.body);
+		var fName = req.body.firstname;
+		var lName = req.body.lastname;
+		var gender = req.body.gender;
 		var newEmployee = {"firstName":fName,"lastName":lName,"gender":gender};
 		console.log("newEmployee "+newEmployee);
 		employees.push(newEmployee);
@@ -45,11 +49,11 @@ app.delete('/removeEmployee/:firstName',function(req,res){
 	res.json(employees);
 });
 
-app.get('/updateEmployee',function(req,res){
-	console.log("Received updateEmployee "+req.query.firstname);
-	var fName = req.query.firstname;
-	var lName = req.query.lastname;
-	var gender = req.query.gender;
+app.put('/updateEmployee/:firstname',function(req,res){
+	console.log("Received updateEmployee "+req.params.firstname);
+	var fName = req.body.firstname;
+	var lName = req.body.lastname;
+	var gender = req.body.gender;
 	for (var i = 0; i < employees.length; i++){
 		if (employees[i].firstName == fName){
 			console.log("Found Employee "+employees[i].firstName);
