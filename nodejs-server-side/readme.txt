@@ -1,6 +1,6 @@
 ----------------------------How to put angular 2 files in Nodejs Server Side----------------------------
 step1.  intstall nodejs
-step2:  create a folder angular2withNode and copy(nodejs server app) from https://github.com/trainingcode/Angular2-week2-backend/Week2_Assignment to this folder.
+step2:  create a folder angular2withNode and copy(nodejs server app) from https://github.com/trainingcode/Angular2-week2-backend/tree/Week2_Assignment/Week2_Assignment to this folder.
 step3:  get a cmd prompt and navigate to angular2withNode folder.
 step4: type:- npm install body-parser ejs express mongojs     (this will download dependencies for nodejs)
 step5: create 2 folders, views and client inside angular2withNode folder.
