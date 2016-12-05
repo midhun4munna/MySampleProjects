@@ -1,5 +1,5 @@
 import { Injectable,Inject } from '@angular/core';
-import { Http,Response } from '@angular/http';
+import { Http,Response,Headers, RequestOptions  } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Subject }    from 'rxjs/Subject';
 
@@ -26,8 +26,12 @@ export class EmployeeService {
   
   addEmployee(fname,lname,gender){
 	console.log("--------Inside addEmployee---------"+fname);
-	this.addurl = "/addNewEmployee?firstname=" + fname + "&lastname=" + lname + "&gender="+gender;
-	return this._http.get(this.addurl)
+	let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+	let empl = {"firstname":fname,"lastname":lname,"gender":gender};
+	let body = JSON.stringify(empl);
+	this.addurl = "/addNewEmployee";
+	return this._http.post(this.addurl,body,options)
 		.map((response:Response) => response.json())
 		.subscribe(res => {
 		console.log("===Employee added===="+res);
@@ -37,8 +41,12 @@ export class EmployeeService {
   
   updateEmployee(fname,lname,gender){
 	console.log("--------Inside updateEmployee---------"+fname);
-	this.updateurl = "/updateEmployee?firstname=" + fname + "&lastname=" + lname + "&gender="+gender;
-	return this._http.get(this.updateurl)
+	let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+	let empl = {"firstname":fname,"lastname":lname,"gender":gender};
+	let body = JSON.stringify(empl);
+	this.updateurl = "/updateEmployee/" + fname;
+	return this._http.put(this.updateurl,body,options)
 		.map((response:Response) => response.json())
 		.subscribe(res => {
 		console.log("===Employee updated===="+res);
