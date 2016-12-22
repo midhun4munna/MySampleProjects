@@ -82,40 +82,40 @@ public class ClaimSpeechlet1 implements Speechlet {
 			claimDAO = getClaimInstace();
 			HashMap<Integer, String> userClaimMap = claimDAO.fetchClaims();
 			int numberOfClaims = userClaimMap.size();
-			System.out.println("Number of Claims " + numberOfClaims);
-			speechOutputBuilder.append("You have " + "<say-as interpret-as=\"digits\">" + numberOfClaims + "</say-as> claims. ");
-			Set setOfKeys = userClaimMap.keySet();
-			Iterator iterator = setOfKeys.iterator();
-
-			/*
-			 * while (iterator.hasNext()) { int key = (Integer) iterator.next();
-			 * String value = (String) userClaimMap.get(key);
-			 * System.out.println("userClaimMap value " + value);
-			 * speechOutputBuilder.append("<p>"); speechOutputBuilder.append(key
-			 * + " . " + value); speechOutputBuilder.append("</p>"); }
-			 */
-
-			while (iterator.hasNext()) {
-				int key = (Integer) iterator.next();
-				String value = (String) userClaimMap.get(key);
-				System.out.println("userClaimMap value " + value);
-				String claimId = value.substring(0, 5) + "<say-as interpret-as=\"digits\">" + value.substring(5)
-						+ "</say-as>";
-				System.out.println("userClaimMap claimId " + claimId);
+			if (numberOfClaims != 0) {
+				System.out.println("Number of Claims " + numberOfClaims);
+				speechOutputBuilder.append(
+						"You have " + "<say-as interpret-as=\"digits\">" + numberOfClaims + "</say-as> claims. ");
+				Set setOfKeys = userClaimMap.keySet();
+				Iterator iterator = setOfKeys.iterator();
+				
+				while (iterator.hasNext()) {
+					int key = (Integer) iterator.next();
+					String value = (String) userClaimMap.get(key);
+					System.out.println("userClaimMap value " + value);
+					String claimId = value.substring(0, 5) + "<say-as interpret-as=\"digits\">" + value.substring(5)
+							+ "</say-as>";
+					System.out.println("userClaimMap claimId " + claimId);
+					speechOutputBuilder.append("<p>");
+					speechOutputBuilder.append(key + " . " + claimId);
+					speechOutputBuilder.append("</p>");
+				}
 				speechOutputBuilder.append("<p>");
-				speechOutputBuilder.append(key + " . " + claimId);
+				speechOutputBuilder.append("Please select a claim.");
 				speechOutputBuilder.append("</p>");
+				session.setAttribute("userMap", userClaimMap);
+				session.setAttribute(SESSION_STAGE, ASK_ALL_CLAIM_STAGE);
+			} else {
+				PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
+				outputSpeech.setText("You do not have any claims.");
+				return SpeechletResponse.newTellResponse(outputSpeech);
 			}
-			speechOutputBuilder.append("<p>");
-			speechOutputBuilder.append("Please select a claim.");
-			speechOutputBuilder.append("</p>");
-			session.setAttribute("userMap", userClaimMap);
-			session.setAttribute(SESSION_STAGE, ASK_ALL_CLAIM_STAGE);
-
 			System.out.println("OutPut Text Speech : " + speechOutputBuilder.toString());
 			System.out.println("Completed getClaimDetailsResponse Function");
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
+			outputSpeech.setText("Sorry. Some error occured. Please try again.");
+			return SpeechletResponse.newTellResponse(outputSpeech);
 		}
 		return newAskResponse("<speak>" + speechOutputBuilder.toString() + "</speak>", true, repromptText, false);
 	}
@@ -125,7 +125,7 @@ public class ClaimSpeechlet1 implements Speechlet {
 		StringBuilder speechOutputBuilder = new StringBuilder();
 		String repromptText = "Please say yes or No!";
 		try {
-			if ((Integer) session.getAttribute(SESSION_STAGE) == ASK_ALL_CLAIM_STAGE) {
+			if (session.getAttribute(SESSION_STAGE) != null && ((Integer) session.getAttribute(SESSION_STAGE) == ASK_ALL_CLAIM_STAGE || (Integer) session.getAttribute(SESSION_STAGE) == CLAIM_EXPLAINED_STAGE)) {
 				HashMap<Integer, String> claimMap = (HashMap<Integer, String>) session.getAttribute("userMap");
 				System.out.println("usreMap Size : " + claimMap.size());
 				Slot selectionSlot = intent.getSlot("selection");
@@ -142,18 +142,22 @@ public class ClaimSpeechlet1 implements Speechlet {
 					speechOutputBuilder.append("</p>");
 					session.setAttribute(SESSION_STAGE, CLAIM_EXPLAINED_STAGE);
 				} else {
+					repromptText = "Please provide any input!";
 					speechOutputBuilder.append("<p>");
 					speechOutputBuilder.append(" Invalid Input Please provide a valid input ");
 					speechOutputBuilder.append("</p>");
 				}
 				System.out.println("Completed getSelectedClaimResponse Function");
 			} else {
+				repromptText = "Please provide a correct option!";
 				speechOutputBuilder.append("<p>");
 				speechOutputBuilder.append("Invalid option. Please provide a correct option");
 				speechOutputBuilder.append("</p>");
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
+			outputSpeech.setText("Sorry. Some error occured. Please try again.");
+			return SpeechletResponse.newTellResponse(outputSpeech);
 		}
 		return newAskResponse("<speak>" + speechOutputBuilder.toString() + "</speak>", true, repromptText, false);
 	}
