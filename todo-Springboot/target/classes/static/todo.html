@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="js/todo.js"></script>
+<link rel="stylesheet" type="text/css" href="css/todo.css">
+
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+	<h2>Add Todo</h2>
+
+	<form ng-submit="todoAdd()" id="rcorners2">
+		<label for="fname">Todo : </label><br>
+		<input type="text" ng-model="todoInput" size="50"
+			placeholder="" required> <br>
+		<label for="fname">Status : </label><br>
+		<select ng-model="status">
+			<option value="pending" >Pending</option>
+			<option value="completed" >Completed</option>
+		</select> <br>
+		 <input type="submit" value="Add Todo" class="button">
+	</form><br>
+	<button ng-click="getTodos()"><font color="red">Get Todos</font></button><br>
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>TODO ID</th>
+					<th>TODODETAIL</th>
+					<th>STATUS</th>
+					<th>DELETE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="todo in todos">
+					<td>{{todo.slno}}</td>
+					<td>{{todo.todoDetail}}</td>
+					<td>{{todo.status}}</td>
+					<td><button ng-click="remove(todo.slno)"><font color="red">REMOVE </font></button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
